@@ -1,51 +1,51 @@
-### Nivel 1 – Extender tu modelo actual (más fácil)
+### Level 1 – Extend your current model (easiest)
 
-Con el LSTM one-step que ya tenés, haría:
+With the one-step LSTM you already have, I would:
 
-Implementar el recursive multi-step:
+Implement recursive multi-step:
 
-Partís de la última ventana del test,
+Start from the last window of the test set,
 
-predecís t+1,
+predict t+1,
 
-la metés en la ventana,
+feed it back into the window,
 
-predecís t+2,
+predict t+2,
 
-y así hasta t+24 (por ejemplo).
+and so on up to t+24 (for example).
 
-Evaluar cómo crece el error al aumentar el horizonte:
+Evaluate how the error grows as the horizon increases:
 
 MAE(h=1), MAE(h=2), ..., MAE(h=24).
 
-Esto te enseña muy bien:
+This teaches you very well:
 
-cómo se degradan los modelos con el horizonte,
+how models degrade with the horizon,
 
-cómo usar tu modelo actual para simular más adelante.
+how to use your current model to simulate further ahead.
 
-###Nivel 2 – Modelo directo para 24h
+### Level 2 – Direct model for 24h
 
-Luego, como paso siguiente:
+Then, as a next step:
 
-Cambiar la capa final para que devuelva un vector de tamaño 24 en vez de 1.
+Change the final layer to return a vector of size 24 instead of 1.
 
-Ajustar los datos para que:
+Adjust the data so that:
 
-input = 168h de historia,
+input = 168h of history,
 
-target = las 24h siguientes (vector).
+target = the next 24h (vector).
 
-Con esto comparás:
+With this you compare:
 
-LSTM one-step + recursivo (24 veces),
+LSTM one-step + recursive (24 times),
 
-vs LSTM multi-output (24 horas de una sola vez).
+vs LSTM multi-output (24 hours at once).
 
-### Nivel 3 – Si te pica el bicho de SOTA
+### Level 3 – If you get the SOTA bug
 
-Recién ahí, más adelante:
+Only then, later on:
 
-mirar arquitecturas tipo Temporal Fusion Transformer o N-BEATS,
+look at architectures like Temporal Fusion Transformer or N-BEATS,
 
-o incluso modelos preentrenados tipo Chronos/T5 adaptados a energía.
+or even pre-trained models like Chronos/T5 adapted for energy.
